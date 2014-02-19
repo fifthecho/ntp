@@ -117,6 +117,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # chef-validator, unless you changed the configuration.
   #
   #   chef.validation_client_name = "ORGNAME-validator"
+
+
+  config.omnibus.chef_version = :latest
+
   config.vm.define :centos5 do |centos5|
     centos5.vm.box      = 'opscode-centos-5.10'
     centos5.vm.box_url  = 'http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-5.10_chef-provisionerless.box'

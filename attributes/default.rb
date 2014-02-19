@@ -70,4 +70,5 @@ when 'freebsd'
 when 'suse'
   # default['ntp']['apparmor_enabled'] = true
   default['ntp']['packages'] = ['ntp']
+  default['ntp']['service'] = 'ntp'
 end
