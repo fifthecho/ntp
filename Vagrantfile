@@ -121,16 +121,58 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.omnibus.chef_version = :latest
 
+  config.vm.define :centos6 do |centos6|
+    centos6.vm.box      = 'opscode-centos-6.5'
+    centos6.vm.box_url  = 'http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.5_chef-provisionerless.box'
+    centos6.vm.hostname = "#{cookbook}-centos-6"
+  end
+
   config.vm.define :centos5 do |centos5|
     centos5.vm.box      = 'opscode-centos-5.10'
     centos5.vm.box_url  = 'http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-5.10_chef-provisionerless.box'
     centos5.vm.hostname = "#{cookbook}-centos-5"
   end
   
-  config.vm.define :opensuse12 do |opensuse12|
-    opensuse12.vm.box	= 'opensuse-12.3'
-    opensuse12.vm.box_url = 'http://sourceforge.net/projects/opensusevagrant/files/12.3/opensuse-12.3-64.box/download'
-    opensuse12.vm.hostname = 'ntp-opensuse'
+  config.vm.define :opensuse12 do |osuse12|
+    osuse12.vm.box	= 'opensuse-12.3'
+    osuse12.vm.box_url	= 'http://sourceforge.net/projects/opensusevagrant/files/12.3/opensuse-12.3-64.box/download'
+    osuse12.vm.hostname	= 'ntp-opensuse'
+  end
+  
+  config.vm.define :sles11 do |sles11|
+    sles11.vm.box	= 'sles-11sp1'
+    sles11.vm.box_url	= 'http://puppet-vagrant-boxes.puppetlabs.com/sles-11sp1-x64-vbox4210-nocm.box'
+    sles11.vm.hostname	= 'ntp-sles'
+  end
+
+  config.vm.define :debian7 do |debian7|
+    debian7.vm.box      = 'opscode-debian-7.2.0'
+    debian7.vm.box_url  = 'http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_debian-7.2.0_chef-provisionerless.box'
+    debian7.vm.hostname = "#{cookbook}-debian-7"
+  end
+
+  config.vm.define :debian6 do |debian6|
+    debian6.vm.box      = 'opscode-debian-6.0.8'
+    debian6.vm.box_url  = 'http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_debian-6.0.8_chef-provisionerless.box'
+    debian6.vm.hostname = "#{cookbook}-debian-6"
+  end
+
+  config.vm.define :freebsd9 do |freebsd9|
+    freebsd9.vm.box      = 'opscode-freebsd-9.2'
+    freebsd9.vm.box_url  = 'http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_freebsd-9.2_chef-provisionerless.box'
+    freebsd9.vm.hostname = "#{cookbook}-freebsd-9"
+  end
+
+  config.vm.define :ubuntu1204 do |ubuntu1204|
+    ubuntu1204.vm.box      = 'opscode-ubuntu-12.04'
+    ubuntu1204.vm.box_url  = 'http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-12.04_chef-provisionerless.box'
+    ubuntu1204.vm.hostname = "#{cookbook}-ubuntu-1204"
+  end
+
+  config.vm.define :ubuntu1004 do |ubuntu1004|
+    ubuntu1004.vm.box      = 'opscode-ubuntu-10.04'
+    ubuntu1004.vm.box_url  = 'http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-10.04_chef-provisionerless.box'
+    ubuntu1004.vm.hostname = "#{cookbook}-ubuntu-1004"
   end
 
   config.vm.provision :chef_solo do |chef|
@@ -138,7 +180,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe("apt")
     chef.json = {
       "ntp" => {
-        "servers" => "dc1.fifthecho.com"
+        "servers" => ["dc1.fifthecho.com", "pool.ntp.org"]
       }
     }
     chef.run_list = [

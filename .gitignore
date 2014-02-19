@@ -11,12 +11,14 @@
 .kitchen.local.yml
 Berksfile.lock
 Gemfile.lock
+Vagrantfile
 
 .bundle/
 .cache/
 .kitchen/
 .vagrant/
 .vagrant.d/
+.idea/
 bin/
 tmp/
 vendor/
