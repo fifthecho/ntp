@@ -67,4 +67,7 @@ when 'freebsd'
   default['ntp']['statsdir'] = "#{node['ntp']['varlibdir']}/ntpstats"
   default['ntp']['conf_group'] = 'wheel'
   default['ntp']['var_group'] = 'wheel'
+when 'suse'
+  # default['ntp']['apparmor_enabled'] = true
+  default['ntp']['packages'] = ['ntp']
 end
